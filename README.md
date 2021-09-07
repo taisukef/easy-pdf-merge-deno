@@ -9,7 +9,6 @@ forked [karuppiah7890/easy-pdf-merge: An npm module to merge PDFs](https://githu
 import { mergePDF } from "https://taisukef.github.io/easy-pdf-merge-deno/mergePDF.js";
 
 await mergePDF(source_pdf_files, dest_pdf_file);
-console.log('Success')
 ```
 
 source_files must be an array of file paths, with two or more file paths, or the module throws an error accordingly.
@@ -23,7 +22,6 @@ meargePDF will fetch 'pdfbox.jar' and put it on your local './jar/' folder.
 
 ```javascript
 await mergePDF(['File One.pdf', 'File Two.pdf'], 'File Ouput.pdf');
-console.log('Successfully merged!')
 ```
 ### Options
 
@@ -36,7 +34,6 @@ const opts = {
 };
 
 await mergePDF(['File One.pdf', 'File Two.pdf'], 'File Ouput.pdf', opts);
-console.log('Successfully merged!')
 ```
 
 The default options is this
