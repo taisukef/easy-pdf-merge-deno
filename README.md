@@ -1,69 +1,28 @@
-## easy-pdf-merge [![Patreon][patreon-badge]][patreon-link] [![Paypal][paypal-badge]][paypal-link]
+## easy-pdf-merge-deno
 
-# ⚠️ CURRENTLY NOT MAINTAINED
+easy-pdf-merge is a module to merge multiple PDFs into a single PDF easily for Deno. This module uses [Apache PDFBox Library 2.0.24](http://pdfbox.apache.org). No special softwares are required for the module to run. But Java 6 or higher must be present.
 
-[patreon-badge]: https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.herokuapp.com%2Fkaruppiah7890&style=flat-square
-[patreon-link]: https://patreon.com/karuppiah7890
-
-[paypal-badge]: https://img.shields.io/badge/Paypal-Donate!-%2300457C.svg?logo=paypal&style=flat-square
-[paypal-link]: https://paypal.me/karuppiah7890
-
-easy-pdf-merge is a node module to merge multiple PDFs into a single PDF easily. This module uses [Apache PDFBox Library 2.0.21](http://pdfbox.apache.org). No special softwares are required for the module to run. But Java 6 or higher must be present.
-
-This project is currently maintained! Contributions through PRs are welcome. I will try to add a contributing guide. If you benefit from this project, buy the original author a cup of coffee by donating through [Paypal](https://www.paypal.me/karuppiah7890)
-
-Currently only callback style is supported. That is only Async functions are supported.
-
-> ⚠️ Warning: This module was written as a side project. I don't maintain it anymore. If you are using this in production for some criticial application, do consider checking out the code - it is a very very small module.
-
-## Install :
-
-```
-$ npm install --save easy-pdf-merge
-```
-
+forked [karuppiah7890/easy-pdf-merge: An npm module to merge PDFs](https://github.com/karuppiah7890/easy-pdf-merge)
 ## Usage :
 
-```javascript
-const merge = require('easy-pdf-merge');
+```js
+import { mergePDF } from "https://taisukef.github.io/easy-pdf-merge-deno/mergePDF.js";
 
-merge(source_files, dest_file_path, function (err) {
-    if (err) {
-        return console.log(err)
-    }
-    console.log('Success')
-});
+await mergePDF(source_files, dest_file_path);
+console.log('Success')
 ```
 
 source_files must be an array of file paths, with two or more file paths, or the module throws an error accordingly.
 dest_file path is the destination path for the merged PDF to be saved.
-
-For all files, it is recommended to give absolute paths to avoid possible path based problems in your code. Or, give paths relative to `process.cwd();` , which is the current working directory of the process. But be careful when giving relative paths, to avoid bugs.
 
 ## Example
 
 ### Using relative file paths
 
 ```javascript
-merge(['File One.pdf', 'File Two.pdf'], 'File Ouput.pdf', function (err) {
-    if (err) {
-        return console.log(err)
-    }
-    console.log('Successfully merged!')
-});
+await mergePDF(['File One.pdf', 'File Two.pdf'], 'File Ouput.pdf');
+console.log('Successfully merged!')
 ```
-
-### Using absolute file paths
-
-```javascript
-merge(['/home/karuppiah/File One.pdf', '/home/karuppiah/File Two.pdf'], '/home/karuppiah/Desktop/File Ouput.pdf', function (err) {
-    if (err) {
-        return console.log(err)
-    }
-    console.log('Successfully merged!')
-});
-```
-
 ### Options
 
 You can pass some options to the `merge` function, like this
@@ -74,12 +33,8 @@ const opts = {
     maxHeap: '2g' // for setting JVM heap limits to 2GB
 };
 
-merge(['File One.pdf', 'File Two.pdf'], 'File Ouput.pdf', opts, function (err) {
-    if (err) {
-        return console.log(err)
-    }
-    console.log('Successfully merged!')
-});
+await mergePDF(['File One.pdf', 'File Two.pdf'], 'File Ouput.pdf', opts);
+console.log('Successfully merged!')
 ```
 
 The default options is this
@@ -105,13 +60,12 @@ for some details
 
 ## Reporting Issues and Feature Requests
 
-For reporting issues and for feature requests, go to the [github issues page of the module](https://github.com/karuppiah7890/easy-pdf-merge/issues)
-
-
+For reporting issues and for feature requests, go to the [github issues page of the module](https://github.com/taisukef/easy-pdf-merge-deno/issues)
 
 ## License - Apache License 2.0
 ```
 Copyright 2016 Karuppiah N
+Copyright 2021 Taisuke Fukuno
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

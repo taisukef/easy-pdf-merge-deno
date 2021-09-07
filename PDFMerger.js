@@ -1,0 +1,46 @@
+/*
+java -jar jar/pdfbox-app-2.0.24.jar
+java -jar jar/pdfbox-app-2.0.24.jar PDFMerger "test/github cheat sheet.pdf" test/text_extraction.pdf test/Out.pdf
+*/
+
+const PDFBOX = "pdfbox-app-2.0.24.jar";
+
+const mergePDF = async (srcs, dest, opts) => {
+  const defaultOpts = {
+    maxBuffer: 1024 * 500, // 500kb
+    maxHeap: '' // for setting JVM heap limits
+  };
+  opts ||= defaultOpts;
+
+  const jarPath = "./temp/" + PDFBOX;
+  /*
+  if (!exists(jarPath)) {
+  }
+  */
+
+  let command = [
+    "java", "-jar", jarPath, "PDFMerger"
+  ];
+
+  const maxHeapOpt = opts.maxHeap ? '-Xmx' + opts.maxHeap : null
+  if (maxHeapOpt) {
+    command.splice(1, 0, maxHeapOpt)
+  }
+
+  command = command.concat(srcs);
+  command.push(dest);
+  //delete opts.maxHeap;
+
+  // console.log(command.join(" "));
+  const p = await Deno.run({ cmd: command, stderr: 'piped', stdout: 'piped' });
+  const [status, stdout, stderr] = await Promise.all([
+    p.status(),
+    p.output(),
+    p.stderrOutput()
+  ]);
+  // console.log(status, new TextDecoder().decode(stdout), new TextDecoder().decode(stderr));
+  p.close();
+  return true;
+};
+
+export { mergePDF };

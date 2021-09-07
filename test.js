@@ -1,36 +1,21 @@
-var path = require('path');
-var merge = require(`./source/index.js`);
+import { mergePDF } from "./PDFMerger.js";
 
-merge([`test${path.sep}github cheat sheet.pdf`, `test${path.sep}text_extraction.pdf`], `test${path.sep}Out.pdf`, function (err) {
-
-  if (err)
-    return console.log(err);
-
+const test = async (opts) => {
+  //await mergePDF(["test/github cheat sheet.pdf", "test/text_extraction.pdf"], "test/Out.pdf", opts);
+  await mergePDF(["test/text_extraction.pdf", "test/text_extraction.pdf"], "./test/Out.pdf", opts);
   console.log("Success");
-});
+};
 
-let opts = {
+await test();
+
+/*
+await test({
   maxBuffer: 1024 * 500, // 500kb
   maxHeap: '' // for setting JVM heap limits
-}
-
-merge([`test${path.sep}github cheat sheet.pdf`, `test${path.sep}text_extraction.pdf`], `test${path.sep}Out.pdf`, opts, function (err) {
-
-  if (err)
-    return console.log(err);
-
-  console.log("Success");
 });
 
-opts = {
+await test({
   maxBuffer: 1024 * 500, // 500kb
   maxHeap: '10m' // for setting JVM heap limits
-}
-
-merge([`test${path.sep}github cheat sheet.pdf`, `test${path.sep}text_extraction.pdf`], `test${path.sep}Out.pdf`, opts, function (err) {
-
-  if (err)
-    return console.log(err);
-
-  console.log("Success");
 });
+*/
