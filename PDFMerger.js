@@ -6,8 +6,9 @@ java -jar jar/pdfbox-app-2.0.24.jar PDFMerger "test/github cheat sheet.pdf" test
 import { fetchBin } from "https://js.sabae.cc/fetchBin.js";
 
 const PDFBOX = "pdfbox-app-2.0.24.jar";
-
 const URL_PDFBOX = "https://taisukef.github.io/easy-pdf-merge-deno/jar/" + PDFBOX;
+
+const temppath = "./temp/";
 
 const exists = async (fn) => {
   try {
@@ -26,11 +27,11 @@ const mergePDF = async (srcs, dest, opts) => {
   };
   opts ||= defaultOpts;
 
-  const jarPath = "./jar/" + PDFBOX;
+  const jarPath = temppath + PDFBOX;
   if (!await exists(jarPath)) {
     const jar = await fetchBin(URL_PDFBOX);
-    Deno.mkdir("./jar", { recursive: true });
-    await Deno.writeFile("./jar/" + PDFBOX, jar);
+    Deno.mkdir(temppath, { recursive: true });
+    await Deno.writeFile(temppath + PDFBOX, jar);
   }
 
   let command = [
