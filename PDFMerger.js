@@ -3,7 +3,21 @@ java -jar jar/pdfbox-app-2.0.24.jar
 java -jar jar/pdfbox-app-2.0.24.jar PDFMerger "test/github cheat sheet.pdf" test/text_extraction.pdf test/Out.pdf
 */
 
+import { fetchBin } from "https://js.sabae.cc/fetchBin.js";
+
 const PDFBOX = "pdfbox-app-2.0.24.jar";
+
+const URL_PDFBOX = "https://taisukef.github.io/easy-pdf-merge-deno/jar/" + PDFBOX;
+
+const exists = async (fn) => {
+  try {
+    const s = await Deno.stat(fn);
+    //console.log(s);
+    return true;
+  } catch (e) {
+  }
+  return false;
+}
 
 const mergePDF = async (srcs, dest, opts) => {
   const defaultOpts = {
@@ -12,11 +26,12 @@ const mergePDF = async (srcs, dest, opts) => {
   };
   opts ||= defaultOpts;
 
-  const jarPath = "./temp/" + PDFBOX;
-  /*
-  if (!exists(jarPath)) {
+  const jarPath = "./jar/" + PDFBOX;
+  if (!await exists(jarPath)) {
+    const jar = await fetchBin(URL_PDFBOX);
+    Deno.mkdir("./jar", { recursive: true });
+    await Deno.writeFile("./jar/" + PDFBOX, jar);
   }
-  */
 
   let command = [
     "java", "-jar", jarPath, "PDFMerger"
@@ -38,9 +53,10 @@ const mergePDF = async (srcs, dest, opts) => {
     p.output(),
     p.stderrOutput()
   ]);
+  //console.log(status);
   // console.log(status, new TextDecoder().decode(stdout), new TextDecoder().decode(stderr));
   p.close();
-  return true;
+  return status == 0;
 };
 
 export { mergePDF };

@@ -15,6 +15,8 @@ console.log('Success')
 source_files must be an array of file paths, with two or more file paths, or the module throws an error accordingly.
 dest_file path is the destination path for the merged PDF to be saved.
 
+meargePDF will fetch 'pdfbox.jar' and put it on your local './jar/' folder.
+
 ## Example
 
 ### Using relative file paths
