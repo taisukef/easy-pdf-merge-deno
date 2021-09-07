@@ -8,7 +8,7 @@ forked [karuppiah7890/easy-pdf-merge: An npm module to merge PDFs](https://githu
 ```js
 import { mergePDF } from "https://taisukef.github.io/easy-pdf-merge-deno/mergePDF.js";
 
-await mergePDF(source_files, dest_file_path);
+await mergePDF(source_pdf_files, dest_pdf_file);
 console.log('Success')
 ```
 
